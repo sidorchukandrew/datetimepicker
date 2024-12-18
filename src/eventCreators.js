@@ -1,7 +1,7 @@
 /**
  * @flow strict-local
  */
-import type {DateTimePickerEvent} from './types';
+import type {DateTimePickerEvent, RangePickerEvent, Range} from './types';
 import {ANDROID_EVT_TYPE, EVENT_TYPE_SET} from './constants';
 
 export const createDateTimeSetEvtParams = (
@@ -18,6 +18,20 @@ export const createDateTimeSetEvtParams = (
     },
     date,
   ];
+};
+
+export const createRangeSetEvtParams = (
+  range: Range,
+  utcOffset: number,
+): RangePickerEvent => {
+  return {
+    type: EVENT_TYPE_SET,
+    nativeEvent: {
+      startTimestamp: range.start ? range.start.getTime() : 0,
+      endTimestamp: range.end ? range.end.getTime() : 0,
+      utcOffset,
+    },
+  };
 };
 
 export const createDismissEvtParams = (
